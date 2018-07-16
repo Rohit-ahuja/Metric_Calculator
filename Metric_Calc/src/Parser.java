@@ -36,18 +36,25 @@ public class Parser {
 	// Returns 'true' if the string is a KEYWORD.
 	boolean isKeyword(String str)
 	{
-	    if (!str.equals("if") || !str.equals("else") ||
-	        !str.equals("while") || !str.equals("do") || 
-	        !str.equals("break") || 
-	         !str.equals("continue") || !str.equals("int")
-	        || !str.equals("double") || !str.equals("float")
-	        || !str.equals("return") || !str.equals("char")
-	        || !str.equals("case") || !str.equals("char")
-	        || !str.equals("sizeof") || !str.equals("long")
-	        || !str.equals("short") || !str.equals("typedef")
-	        || !str.equals("switch") || !str.equals("unsigned")
-	        || !str.equals("void") || !str.equals("static")
-	        || !str.equals("struct") || !str.equals("goto"))
+	    if (str.equals("if") || str.equals("else") ||                                 //auto	double	int	struct
+	    		/*break	long	switch
+	    case	enum	register	typedef
+	    char	extern	return	union
+	    const	float	short	unsigned
+	    continue	for	signed	void
+	    default	goto	sizeof	volatile
+	    do	static	while*/
+	        str.equals("while") || str.equals("do") || 
+	        str.equals("break") || 
+	         str.equals("continue") || str.equals("int")
+	        || str.equals("double") || str.equals("float")
+	        || str.equals("return") || str.equals("char")
+	        || str.equals("case") || str.equals("char")
+	        || str.equals("sizeof") || str.equals("long")
+	        || str.equals("short") || str.equals("typedef")
+	        || str.equals("switch") || str.equals("unsigned")
+	        || str.equals("void") || str.equals("static")
+	        || str.equals("struct") || str.equals("goto"))
 	        return (true);
 	    return (false);
 	}
@@ -92,56 +99,44 @@ public class Parser {
 	    return (hasDecimal);
 	}
 	 
-	// Extracts the SUBSTRING.
-	String subString(String str, int left, int right)
-	{
-	    int i;
-	    char subStr[] = new char[right - left + 1];
-	 
-	    for (i = left; i <= right; i++)
-	        subStr[i - left] = str.charAt(i);
-	    //subStr[right - left + 1] = '\0';
-	    String s1 = new String(subStr);
-	    System.out.println(s1.length());
-	    return (new String(subStr));
-	}
-	 
 	// Parsing the input STRING.
 	void parse(String str)
 	{
 	    int left = 0, right = 0;
 	    int len = str.length();
 	    len--;
-	    while (right <= len && left <= right) {
+	    //System.out.println(len);
+	    while (right < len && left <= right) {
 	        if (isDelimiter(str.charAt(right)) == false)
 	            right++;
 	 
 	        if (isDelimiter(str.charAt(right)) == true && left == right) {
 	            if (isOperator(str.charAt(right)) == true)
-	                System.out.println(" IS AN OPERATOR\n"+ str.charAt(right));
+	                System.out.println(str.charAt(right)+" IS AN OPERATOR\n");
 	 
 	            right++;
 	            left = right;
 	        } else if (isDelimiter(str.charAt(right)) == true && left != right
 	                   || (right == len && left != right)) {
-	            String subStr = subString(str, left, right - 1);
-	 
+	            //String subStr = subString(str, left, right - 1);
+	        	String subStr = str.substring(left,right);
+	        	//System.out.println(subStr+"hello");
 	            if (isKeyword(subStr) == true)
-	                System.out.println(" IS A KEYWORD\n"+ subStr);
+	                System.out.println(subStr+" IS A KEYWORD\n");
 	 
 	            else if (isInteger(subStr) == true)
-	                System.out.println(" IS AN INTEGER\n"+ subStr);
+	                System.out.println(subStr+" IS AN INTEGER\n");
 	 
 	            else if (isRealNumber(subStr) == true)
-	                System.out.println(" IS A REAL NUMBER\n"+ subStr);
+	                System.out.println(subStr+" IS A REAL NUMBER\n");
 	 
 	            else if (validIdentifier(subStr) == true
 	                     && isDelimiter(str.charAt(right-1)) == false)
-	                System.out.println("'%s' IS A VALID IDENTIFIER\n"+ subStr);
+	                System.out.println(subStr+" IS A VALID IDENTIFIER\n");
 	 
 	            else if (validIdentifier(subStr) == false
 	                     && isDelimiter(str.charAt(right-1)) == false)
-	                System.out.println("'%s' IS NOT A VALID IDENTIFIER\n"+ subStr);
+	                System.out.println(subStr+" IS NOT A VALID IDENTIFIER\n");
 	            left = right;
 	        }
 	    }
