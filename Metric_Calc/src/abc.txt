@@ -1,5 +1,9 @@
-#include<stdio.h>
-void main(){
-int a = 10,b = 10;
-printf("Hello");
-}
+complexity6( int i, int j ) {
+if ( i>0 && j>0 )
+{ while ( i>j ) {
+if ( i% 2 && j % 2)
+print( "%d\ n", i );
+else
+print ("%d\ n", j );
+i--;
+} } }

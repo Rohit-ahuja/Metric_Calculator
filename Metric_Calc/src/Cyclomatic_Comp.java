@@ -1,8 +1,9 @@
-import java.io.*;
-import java.util.*;
-public class Analyser {
+import java.io.FileReader;
+import java.util.StringTokenizer;
 
-	public static void main(String[] args) throws IOException{
+public class Cyclomatic_Comp {
+
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int ch;
 		String str = "";
@@ -18,17 +19,17 @@ public class Analyser {
 			System.out.print("Error");
 		}
 		StringTokenizer st = new StringTokenizer(str,"\n");
-		Parser p = new Parser();
+		ParserC p = new ParserC();
+		int count = 0;
 	    while(st.hasMoreTokens()){
-	    	String str1 = st.nextToken().trim();
-	    	if(str1.charAt(0) != '#'){
-	    		p.parse(str1);
+	    	String str1 = st.nextToken().trim()+";";
+	    	if(str1.charAt(0) != '#' && str1.charAt(0) !='/'){
+	    		 count += p.parse(str1);
 	    	}
-	    	//System.out.print(st.nextToken());
-	    	//st.nextToken();
+	    	
 	    }
-	    //p.parse("int a=10;");
+	    System.out.println((1+count));
+
 	}
 
 }
-
