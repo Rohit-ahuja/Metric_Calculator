@@ -58,7 +58,7 @@ public class ParserC {
 		            		}
 		            	}
 		            }
-		               // System.out.println(str.charAt(right)+" IS AN OPERATOR\n");
+		      
 		 
 		            right++;
 		            left = right;
@@ -69,7 +69,7 @@ public class ParserC {
 		  
 		            if (isKeyword(subStr) == true){
 		            	count++;
-		            	System.out.println(subStr+"is a keyword");
+		            
 		            }
 		 
 		            left = right;

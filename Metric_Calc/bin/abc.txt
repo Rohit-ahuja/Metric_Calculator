@@ -1,9 +1,12 @@
-complexity6( int i, int j ) {
-if ( i>0 && j>0 )
-{ while ( i>j ) {
-if ( i% 2 && j % 2)
-print( "%d\ n", i );
-else
-print ("%d\ n", j );
-i--;
-} } }
+main ()
+{
+ int i,j;
+for (i = 1; i <= 10; i++)
+ {
+for (j = 1; j <= 10; j++)
+ {
+printf ("%5d",i * j);
+ }
+ printf ("\n"); 
+ } 
+ }

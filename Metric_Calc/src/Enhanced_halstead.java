@@ -1,8 +1,10 @@
-import java.util.*;
-public class ParserH {
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+public class Enhanced_halstead {
 	ArrayList<String> opral = new ArrayList<String>();
 	ArrayList<String> opreal = new ArrayList<String>();
-	int n1,n2,N1,N2;
+	int n1,n2,N1,N2,level=-1,countop=0,countor=0;
 	boolean isDelimiter(char ch)
 	{
 	    if (ch == ' ' || ch == '+' || ch == '-' || ch == '*' || 
@@ -70,7 +72,8 @@ public class ParserH {
 	        ch == '=' || ch == '&' || ch == '|' || 
 	        ch == '(' || ch == '[' || ch == '{' ||
 	        ch == '%' || ch == ',' || ch == '^' || 
-	        ch == '.' || ch == '?' || ch == ';')
+	        ch == '.' || ch == '?' || ch == ';' ||
+	        ch == '}')
 	        return (true);
 	    return (false);
 	}
@@ -99,7 +102,13 @@ public class ParserH {
 		 
 		        if (isDelimiter(str.charAt(right)) == true && left == right) {
 		            if (isOperator(str.charAt(right)) == true){
+		            	
+
 		            	char c = str.charAt(right);
+		            	if(level>0 && c!='}')
+		            	{
+		            		countop+=level;
+		            	}
 		            	if(c == '&'){
 		            		right++;
 		            		char c1 = str.charAt(right);
@@ -137,6 +146,10 @@ public class ParserH {
 		            	
 		            	if(c == '{'){
 		            		opral.add("{}");
+		            		level++;
+		            	}
+		            	if(c == '}'){
+		            		level--;
 		            	}
 		            	
 		            	if(c == '+'){
@@ -166,7 +179,6 @@ public class ParserH {
 		            			opral.add("-");
 		            		}
 		            	}
-		            	
 		            	if(c == '*'){
 		            		right++;
 		            		char c1 = str.charAt(right);
@@ -280,7 +292,7 @@ public class ParserH {
 		            		opral.add(""+c);
 		            	}
 		            }
-		               // System.out.println(str.charAt(right)+" IS AN OPERATOR\n");
+		               
 		 
 		            right++;
 		            left = right;
@@ -288,6 +300,11 @@ public class ParserH {
 		                   || (right == len && left != right)) {
 		  
 		        	String subStr = str.substring(left,right);
+		        	if(level>0)
+		        	{
+		        		countor+=level;
+		        	}
+
 		  
 		            if (isKeyword(subStr) == true){
 		            	
@@ -308,11 +325,13 @@ public class ParserH {
 		    Set<String> set = new HashSet<String>(opral);
 	        
             Set<String> seto = new HashSet<String>(opreal);
-	        
+         
             n1 = set.size();
             n2 = seto.size();
 	        N1 = opral.size();
 	        N2 = opreal.size();
+	  
+	        
 	}
 
 }
