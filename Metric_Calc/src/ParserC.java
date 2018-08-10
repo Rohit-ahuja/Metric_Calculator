@@ -1,6 +1,5 @@
-
 public class ParserC {
-	
+	int count = 0;
 	boolean isDelimiter(char ch)
 	{
 	    if (ch == ' ' || ch == '+' || ch == '-' || ch == '*' || 
@@ -25,13 +24,14 @@ public class ParserC {
 	{
 	    if (str.equals("if")  ||                               
 	        str.equals("while") || str.equals("do") || 
-	        str.equals("for"))
+	        str.equals("for") || str.equals("switch") ||
+	        str.equals("case"))
 	        return (true);
 	    return (false);
 	}
 	
-	public int parse(String str){
-		 int left = 0, right = 0,count = 0;
+	public void parse(String str){
+		 int left = 0, right = 0;
 		    int len = str.length();
 		    len--;
 		    //System.out.println(len);
@@ -75,6 +75,6 @@ public class ParserC {
 		            left = right;
 		        }
 		    }
-		return count;
+		
 	}
 }
